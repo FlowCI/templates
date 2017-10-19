@@ -22,6 +22,7 @@
 flow:
   - envs:
      FLOW_AGENT_WORKSPACE: "${HOME}/agent-workspace"
+     FLOW_ENV_OUTPUT_PREFIX: "IOS_OUTPUT_"
      IOS_PROJECT_NAME: "flowcidemo"
      IOS_SCHEME: "flowclibasic"
      IOS_EXPORT_METHOD: "development"
@@ -44,11 +45,16 @@ flow:
           cd ${IOS_PROJECT_NAME}
           fastlane gym --scheme ${IOS_SCHEME} --export_method ${IOS_EXPORT_METHOD} --output_directory ${IOS_IPA_DIR}
       
-      - name: Get IPA
+      - name: Find IPA
         script: |
           cd ${IOS_PROJECT_NAME}
           array=$(find ${IOS_IPA_DIR} -name *.ipa 2>&1)
           for file in ${array[@]}
           do
             echo $file 
+            export IOS_OUTPUT_IPA_PATH=$file
           done
+          
+      - name: Print IPA Path
+        script: |
+          echo ${IOS_OUTPUT_IPA_PATH}
