@@ -25,7 +25,8 @@ flow:
       - name: Git Clone
         script: |
           rm -r -f ${ANDROID_PROJECT_NAME}
-          git clone ${FLOW_GIT_URL} ${ANDROID_PROJECT_NAME}
+          git config --global core.sshCommand 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+          git clone --branch ${FLOW_GIT_BRANCH} --single-branch ${FLOW_GIT_URL} ${ANDROID_PROJECT_NAME}
               
       - name: Build
         script: |
