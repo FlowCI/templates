@@ -19,6 +19,7 @@ flow:
      FLOW_AGENT_WORKSPACE: "${HOME}/agent-workspace"
      FLOW_ENV_OUTPUT_PREFIX: "ANDORID_OUTPUT_"
      ANDROID_GRADLE_BUILD_TASK: "build"
+     ANDROID_PROJECT_NAME: "YourProjectName"
      
     steps:
       - name: Git Clone
@@ -29,7 +30,7 @@ flow:
       - name: Build
         script: |
           cd ${ANDROID_PROJECT_NAME}
-          gradlew ${ANDROID_GRADLE_BUILD_TASK} -x lint
+          ./gradlew ${ANDROID_GRADLE_BUILD_TASK} -x lint
       
       - name: Find APK
         script: |
