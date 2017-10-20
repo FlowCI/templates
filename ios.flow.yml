@@ -32,7 +32,7 @@ flow:
       - name: Git Clone
         script: |
           rm -r -f ${IOS_PROJECT_NAME}
-          git config --global core.sshCommand 'ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+          export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
           git clone --branch ${FLOW_GIT_BRANCH} --single-branch ${FLOW_GIT_URL} ${IOS_PROJECT_NAME}
           
       - name: Pods Install
