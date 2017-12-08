@@ -22,7 +22,7 @@
 flow:
   - envs:
      FLOW_AGENT_WORKSPACE: "${HOME}/agent-workspace"
-     FLOW_ENV_OUTPUT_PREFIX: "IOS_OUTPUT_"
+     FLOW_ENV_OUTPUT_PREFIX: "IOS_OUTPUT_,FLOW_AGENT_WORKSPACE"
      IOS_PROJECT_NAME: "flowcidemo"
      IOS_SCHEME: "flowclibasic"
      IOS_EXPORT_METHOD: "development"
@@ -34,6 +34,7 @@ flow:
           rm -r -f ${IOS_PROJECT_NAME}
           export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
           git clone --branch ${FLOW_GIT_BRANCH} --single-branch ${FLOW_GIT_URL} ${IOS_PROJECT_NAME}
+          export FLOW_AGENT_WORKSPACE=${FLOW_AGENT_WORKSPACE}/${IOS_PROJECT_NAME}
           
       - name: Pods Install
         allowFailure: true
@@ -43,12 +44,10 @@ flow:
       
       - name: Build
         script: |
-          cd ${IOS_PROJECT_NAME}
           fastlane gym --scheme ${IOS_SCHEME} --export_method ${IOS_EXPORT_METHOD} --output_directory ${IOS_IPA_DIR}
       
       - name: Find IPA
         script: |
-          cd ${IOS_PROJECT_NAME}
           array=$(find ${IOS_IPA_DIR} -name *.ipa 2>&1)
           for file in ${array[@]}
           do
