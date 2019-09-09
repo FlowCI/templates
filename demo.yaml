@@ -1,0 +1,79 @@
+#
+# Example YAML for flow.ci
+#
+
+# Built-in environment variables
+#
+# FLOWCI_SERVER_URL:
+#
+# FLOWCI_FLOW_NAME:
+# FLOWCI_FLOW_WEBHOOK:
+#
+# FLOWCI_JOB_BUILD_NUM:
+# FLOWCI_JOB_STATUS:
+# FLOWCI_JOB_TRIGGER:
+
+envs:
+  # Git Config
+  # FLOWCI_GIT_URL: "git ssh url, ex: git@github.com:FlowCI/docs.git"
+
+  # Credential name
+  # FLOWCI_CREDENTIAL_SSH_RSA: "the credentail name your created"
+
+  # Define Flow level variables
+  EXAMPLE_VAR: "Hi, I'am an example YAML"
+
+steps:
+  - name: say_hello
+    envs:
+      SAY_HELLO: "hello.flow.ci"
+    allow_failure: true
+    script: |
+      echo ${SAY_HELLO} ${EXAMPLE_VAR}
+      sleep 1
+  
+  - name: environments
+    script: |
+      echo "#### agent ####"
+      echo "Agent Token = ${FLOWCI_AGENT_TOKEN}"
+      echo "Server URL = ${FLOWCI_SERVER_URL}"
+      
+      echo "#### git ####"
+      git version
+      echo ""
+      echo "#### java ####"
+      java -version
+      echo "JAVA_HOME = ${JAVA_HOME}"
+      echo ""
+      
+      mvn -v
+      echo "MAVEN_HOME = ${MAVEN_HOME}"
+      echo ""
+      
+      echo "#### go ####"
+      go version
+      echo "GOROOT = $GOROOT"
+      echo ""
+      
+      echo "#### node ####"
+      echo "nvm version = $(nvm --version)"
+      echo "node version = $(nvm version)"
+      echo "npm version = $(npm -v)"
+      
+      sleep 1
+      
+  - name: try-with-go
+    script: |
+      export GOPATH=$(echo $PWD/go)
+      echo "GOPATH = $(go env GOPATH)"
+      mkdir -p $GOPATH/bin
+      mkdir -p $GOPATH/pkg
+      mkdir -p $GOPATH/src
+      
+      go get github.com/golang/example/hello
+      
+      $GOPATH/bin/hello
+      
+  - name: try-docker
+    script: |
+      docker run hello-world
