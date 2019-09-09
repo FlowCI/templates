@@ -22,8 +22,6 @@ envs:
   # Credential name
   FLOWCI_CREDENTIAL_SSH_RSA: "flow-spring-sample-ssh-rsa"
 
-  HELLO: "hello world"
-
 steps:
   - name: git_clone
     allow_failure: false
