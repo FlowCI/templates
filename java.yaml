@@ -1,0 +1,35 @@
+#
+# Example YAML for flow.ci
+#
+
+# Built-in environment variables
+#
+# FLOWCI_SERVER_URL:
+#
+# FLOWCI_FLOW_NAME:
+# FLOWCI_FLOW_WEBHOOK:
+#
+# FLOWCI_JOB_BUILD_NUM:
+# FLOWCI_JOB_STATUS:
+# FLOWCI_JOB_TRIGGER:
+
+envs:
+  # Git Config
+  FLOWCI_GIT_URL: "git@github.com:FlowCI/spring-petclinic-sample.git"
+  FLOWCI_GIT_REPO: "spring-petclinit-sample"
+  FLOWCI_GIT_BRANCH: "master"
+
+  # Credential name
+  FLOWCI_CREDENTIAL_SSH_RSA: "flow-spring-sample-ssh-rsa"
+
+  HELLO: "hello world"
+
+steps:
+  - name: git_clone
+    allow_failure: false
+    plugin: gitclone
+
+  - name: build
+    script: |
+      cd $FLOWCI_GIT_REPO
+      mvn clean package
