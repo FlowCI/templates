@@ -13,6 +13,8 @@
 # FLOWCI_JOB_STATUS:
 # FLOWCI_JOB_TRIGGER:
 
+# envs:
+#  environment variables in flow level which can be used in every steps
 envs:
   # Git Config
   # FLOWCI_GIT_URL: "git ssh url, ex: git@github.com:FlowCI/docs.git"
@@ -22,7 +24,7 @@ envs:
 
   # Define Flow level variables
   EXAMPLE_VAR: "Hi, I'am an example YAML"
-
+  
 steps:
   - name: say_hello
     envs:
