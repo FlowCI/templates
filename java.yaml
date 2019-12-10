@@ -8,6 +8,9 @@ envs:
   FLOWCI_GIT_BRANCH: "master"
   FLOWCI_GIT_REPO: "spring-petclinic"
 
+  ## Credential name if git repo url is ssh or login required for http
+  # FLOWCI_GIT_CREDENTIAL: "the credentail name your created"
+
 steps:
   - name: clone
     plugin: 'gitclone'

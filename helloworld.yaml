@@ -16,12 +16,6 @@
 # envs:
 #  environment variables in flow level which can be used in every steps
 envs:
-  # Git Config
-  # FLOWCI_GIT_URL: "git ssh url, ex: git@github.com:FlowCI/docs.git"
-
-  # Credential name
-  # FLOWCI_CREDENTIAL_SSH_RSA: "the credentail name your created"
-
   # Define Flow level variables
   EXAMPLE_VAR: "Hi, I'am an example YAML"
   
