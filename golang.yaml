@@ -1,0 +1,33 @@
+#
+# Golang Project Template
+#
+
+envs:
+  # Git config
+  FLOWCI_GIT_URL: "https://github.com/FlowCI/gin.git"
+  FLOWCI_GIT_BRANCH: "master"
+  FLOWCI_GIT_REPO: "gin"
+
+  ## Credential name if git repo url is ssh or login required for http
+  # FLOWCI_GIT_CREDENTIAL: "the credentail name your created"
+
+steps:
+  - name: clone
+    plugin: 'gitclone'
+    allow_failure: false
+
+  - name: lint
+    plugin: 'go-lint'
+
+  - name: test
+    plugin: 'go-test'
+
+  # - name: email
+  #   tail: true
+  #   envs:
+  #       FLOWCI_EMAIL_SMTP: "smtp.163.com"
+  #       FLOWCI_EMAIL_SSL: true
+  #       FLOWCI_EMAIL_FROM: "xxxx@163.com"
+  #       FLOWCI_EMAIL_TO: "FLOW_USERS"
+  #       FLOWCI_EMAIL_CREDENTIAL: "your auth credential name"
+  #   plugin: email-report
