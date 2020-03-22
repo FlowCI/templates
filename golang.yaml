@@ -18,6 +18,7 @@ steps:
 
   - name: lint
     plugin: 'go-lint'
+    allow_failure: true
 
   - name: test
     plugin: 'go-test'
