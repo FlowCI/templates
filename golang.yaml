@@ -13,14 +13,20 @@ envs:
 
 steps:
   - name: clone
+    docker:
+      image: python:3.6
     plugin: 'gitclone'
     allow_failure: false
 
   - name: lint
+    docker:
+      image: golang:1.12
     plugin: 'go-lint'
     allow_failure: true
 
   - name: test
+    docker:
+      image: golang:1.12
     plugin: 'go-test'
 
   # - name: email
