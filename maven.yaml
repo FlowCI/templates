@@ -13,16 +13,24 @@ envs:
 
 steps:
   - name: clone
+    docker:
+      image: python:3.6
     plugin: 'gitclone'
     allow_failure: false
 
   - name: run unit test
+    docker:
+      image: maven:3.6-jdk-8
     plugin: 'maven-test'
 
   - name: package
+    docker:
+      image: maven:3.6-jdk-8
     plugin: 'maven-package'
 
   - name: upload
+    docker:
+      image: ubuntu:18.04
     envs:
       FLOWCI_JOB_ARTIFACT_PATH: ${FLOWCI_MAVEN_PKGS}
     plugin: 'artifact-upload'
