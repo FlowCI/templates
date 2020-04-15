@@ -1,0 +1,44 @@
+#
+# NPM Project Template
+#
+
+envs:
+  FLOWCI_GIT_URL: "https://github.com/hexojs/hexo.git"
+  FLOWCI_GIT_BRANCH: "master"
+  FLOWCI_GIT_REPO: "hexo"
+
+steps:
+- name: clone
+  docker:
+    image: python:3.6
+  plugin: 'gitclone'
+
+- name: install
+  docker:
+    image: node:12
+  envs:
+    NPM_CMD: "npm install"
+  plugin: 'npm-runner'
+
+- name: lint
+  docker:
+    image: node:12
+  envs:
+    NPM_CMD: "npm run eslint"
+  plugin: 'npm-runner'
+
+- name: test
+  docker:
+    image: node:12
+  envs:
+    NPM_CMD: "npm run test-cov"
+  plugin: 'npm-runner'
+
+- name: upload-report
+  docker:
+    image: node:12
+    delete_on_finish: false
+  envs:
+    NPM_CMD: "nyc report --reporter=html"
+    NPM_REPORT_PATH: "./coverage"
+  plugin: 'npm-runner'
