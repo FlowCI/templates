@@ -37,7 +37,6 @@ steps:
 - name: upload-report
   docker:
     image: node:12
-    delete_on_finish: false
   envs:
     NPM_CMD: "nyc report --reporter=html"
     NPM_REPORT_PATH: "./coverage"
