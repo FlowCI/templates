@@ -19,8 +19,6 @@ steps:
     allow_failure: false
 
   - name: lint
-    docker:
-      image: golang:1.12
     plugin: 'go-lint'
     allow_failure: true
 
