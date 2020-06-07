@@ -20,7 +20,7 @@ envs:
   EXAMPLE_VAR: "Hi, I'am an example YAML"
   
 steps:
-  - name: say_hello
+  - name: run script
     envs:
       SAY_HELLO: "hello.flow.ci"
     allow_failure: true
@@ -28,48 +28,18 @@ steps:
       echo ${SAY_HELLO} ${EXAMPLE_VAR}
       sleep 1
   
-  - name: environments
+  - name: build in envs
     script: |
-      echo "#### agent ####"
-      echo "Agent Token = ${FLOWCI_AGENT_TOKEN}"
       echo "Server URL = ${FLOWCI_SERVER_URL}"
+      echo "Ttoken = ${FLOWCI_AGENT_TOKEN}"
+      echo "Port = ${FLOWCI_AGENT_PORT}"
+      echo "Workspace = ${FLOWCI_AGENT_WORKSPACE}"
+      echo "Current job dir = ${FLOWCI_AGENT_JOB_DIR}"
+      echo "Plugin dir = ${FLOWCI_AGENT_PLUGIN_DIR}"
       
-      echo "#### git ####"
-      git version
-      echo ""
-      echo "#### java ####"
-      java -version
-      echo "JAVA_HOME = ${JAVA_HOME}"
-      echo ""
-      
-      mvn -v
-      echo "MAVEN_HOME = ${MAVEN_HOME}"
-      echo ""
-      
-      echo "#### go ####"
-      go version
-      echo "GOROOT = $GOROOT"
-      echo ""
-      
-      echo "#### node ####"
-      echo "nvm version = $(nvm --version)"
-      echo "node version = $(nvm version)"
-      echo "npm version = $(npm -v)"
-      
-      sleep 1
-      
-  - name: try-with-go
+  - name: run from docker
+    docker:
+      image: golang:1.12
     script: |
-      export GOPATH=$(echo $PWD/go)
-      echo "GOPATH = $(go env GOPATH)"
-      mkdir -p $GOPATH/bin
-      mkdir -p $GOPATH/pkg
-      mkdir -p $GOPATH/src
-      
       go get github.com/golang/example/hello
-      
       $GOPATH/bin/hello
-      
-  - name: try-docker
-    script: |
-      docker run hello-world
