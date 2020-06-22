@@ -34,10 +34,17 @@ steps:
     NPM_CMD: "npm run test-cov"
   plugin: 'npm-runner'
 
-- name: upload-report
+- name: gen-report
   docker:
     image: node:12
   envs:
     NPM_CMD: "nyc report --reporter=html"
-    NPM_REPORT_PATH: "./coverage"
   plugin: 'npm-runner'
+
+- name: report upload
+  docker:
+    image: ubuntu:18.04
+  envs:
+    REPORT_PATH: "${FLOWCI_GIT_REPO}/coverage"
+    REPORT_NAME: "Nyc Report"
+  plugin: 'report-upload'
