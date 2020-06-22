@@ -46,5 +46,5 @@ steps:
     image: ubuntu:18.04
   envs:
     REPORT_PATH: "${FLOWCI_GIT_REPO}/coverage"
-    REPORT_NAME: "Nyc Report"
+    REPORT_NAME: "Code Coverage"
   plugin: 'report-upload'
