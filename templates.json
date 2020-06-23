@@ -7,16 +7,16 @@
 
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/maven.yaml",
-        "desc": "Maven template"
+        "desc": "maven"
     },
 
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/golang.yaml",
-        "desc": "Golang template"
+        "desc": "golang"
     },
 
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/npm.yaml",
-        "desc": "NPM template"
+        "desc": "npm"
     }
 ]
