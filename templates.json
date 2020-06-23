@@ -1,0 +1,22 @@
+[
+    {
+        "url": "https://raw.githubusercontent.com/FlowCI/templates/master/helloworld.yaml",
+        "desc": "hello world",
+        "default": true
+    },
+
+    {
+        "url": "https://raw.githubusercontent.com/FlowCI/templates/master/maven.yaml",
+        "desc": "Maven template"
+    },
+
+    {
+        "url": "https://raw.githubusercontent.com/FlowCI/templates/master/golang.yaml",
+        "desc": "Golang template"
+    },
+
+    {
+        "url": "https://raw.githubusercontent.com/FlowCI/templates/master/npm.yaml",
+        "desc": "NPM template"
+    }
+]
