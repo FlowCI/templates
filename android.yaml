@@ -1,0 +1,53 @@
+#
+# Android Project Template with Gradle
+#
+
+envs:
+  FLOWCI_GIT_URL: "https://github.com/hidroh/materialistic.git"
+  FLOWCI_GIT_BRANCH: "master"
+  FLOWCI_GIT_REPO: "materialistic"
+
+  GRADLE_USER_HOME: "${FLOWCI_AGENT_WORKSPACE}/.gradle"
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+
+steps:      
+- name: setup android sdk
+  docker:
+    image: openjdk:8-jdk
+  envs:
+    ANDROID_COMPILE_SDK: "28"
+    ANDROID_BUILD_TOOLS: "28.0.2"
+  plugin: android-sdk-setup
+
+- name: clone
+  docker:
+    image: openjdk:8-jdk
+  plugin: 'gitclone'
+
+- name: lint
+  docker:
+    image: openjdk:8-jdk
+  script: |
+    cd ${FLOWCI_GIT_REPO}
+    ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
+
+- name: build
+  docker:
+    image: openjdk:8-jdk
+  script: |
+    cd ${FLOWCI_GIT_REPO}
+    ./gradlew assembleDebug
+  
+- name: test
+  docker:
+    image: openjdk:8-jdk
+  script: |
+    cd ${FLOWCI_GIT_REPO}
+    ./gradlew -Pci --console=plain :app:testDebug
+
+- name: jacoco
+  docker:
+    image: openjdk:8-jdk
+  script: |
+    cd ${FLOWCI_GIT_REPO}
+    ./gradlew jacocoTestReport
