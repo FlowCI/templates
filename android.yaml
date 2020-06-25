@@ -50,4 +50,6 @@ steps:
     image: openjdk:8-jdk
   script: |
     cd ${FLOWCI_GIT_REPO}
-    ./gradlew jacocoTestReport
+    mkdir -p ${PWD}/app/build/intermediates/classes
+    ln -s ${PWD}/app/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes ${PWD}/app/build/intermediates/classes/debug
+    ./gradlew -Pci --console=plain jacocoTestReport
