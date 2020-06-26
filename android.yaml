@@ -53,3 +53,12 @@ steps:
     mkdir -p ${PWD}/app/build/intermediates/classes
     ln -s ${PWD}/app/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes ${PWD}/app/build/intermediates/classes/debug
     ./gradlew -Pci --console=plain jacocoTestReport
+
+- name: upload report
+  docker:
+    image: ubuntu:18.04
+  envs:
+    # report from jacoco
+    REPORT_PATH: ${FLOWCI_GIT_REPO}/app/build/reports/coverage
+    REPORT_NAME: Code Coverage
+  plugin: report-upload
