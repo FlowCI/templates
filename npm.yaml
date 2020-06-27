@@ -9,7 +9,7 @@ envs:
 steps:
 - name: clone
   docker:
-    image: python:3.6
+    image: flowci/debian-git
   plugin: 'gitclone'
 
 - name: install
