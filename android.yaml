@@ -62,3 +62,31 @@ steps:
     REPORT_PATH: ${FLOWCI_GIT_REPO}/app/build/reports/coverage
     REPORT_NAME: Code Coverage
   plugin: report-upload
+
+- name: build release
+  docker:
+    image: openjdk:8-jdk
+  script: |
+    cd ${FLOWCI_GIT_REPO}
+    ./gradlew assembleRelease
+
+
+###############################################
+### to sign apk, it needs to create a 'secret' in admin page,
+### and set name to `SIGN_SECRET`
+###############################################
+
+# - name: sign apk
+#   envs:
+#     SIGN_FILE_PATTERN: '*-unsigned.apk'
+#     SIGN_SECRET: android-demo
+#   docker:
+#     image: openjdk:8-jdk
+#   plugin: android-signing
+
+# - name: upload singed apk
+#   docker:
+#     image: ubuntu:18.04
+#   envs:
+#     artifact_pattern: '*-signed.apk'
+#   plugin: 'artifact-upload'

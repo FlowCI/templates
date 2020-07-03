@@ -31,5 +31,5 @@ steps:
     docker:
       image: ubuntu:18.04
     envs:
-      FLOWCI_JOB_ARTIFACT_PATH: ${FLOWCI_MAVEN_PKGS}
+      artifact_path: ${FLOWCI_MAVEN_PKGS}
     plugin: 'artifact-upload'
