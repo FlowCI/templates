@@ -6,6 +6,10 @@ envs:
   FLOWCI_GIT_URL: "https://github.com/hexojs/hexo.git"
   FLOWCI_GIT_BRANCH: "master"
 
+## default docker image for steps
+docker:
+  image: node:12
+
 steps:
 - name: clone
   docker:
@@ -13,29 +17,21 @@ steps:
   plugin: 'gitclone'
 
 - name: install
-  docker:
-    image: node:12
   envs:
     NPM_CMD: "npm install"
   plugin: 'npm-runner'
 
 - name: lint
-  docker:
-    image: node:12
   envs:
     NPM_CMD: "npm run eslint"
   plugin: 'npm-runner'
 
 - name: test
-  docker:
-    image: node:12
   envs:
     NPM_CMD: "npm run test-cov"
   plugin: 'npm-runner'
 
 - name: gen-report
-  docker:
-    image: node:12
   envs:
     NPM_CMD: "nyc report --reporter=html"
   plugin: 'npm-runner'

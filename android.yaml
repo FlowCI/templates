@@ -10,44 +10,35 @@ envs:
   GRADLE_USER_HOME: "${FLOWCI_AGENT_WORKSPACE}/.gradle"
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
+docker:
+  image: openjdk:8-jdk
+
 steps:      
 - name: setup android sdk
-  docker:
-    image: openjdk:8-jdk
   envs:
     ANDROID_COMPILE_SDK: "28"
     ANDROID_BUILD_TOOLS: "28.0.2"
   plugin: android-sdk-setup
 
 - name: clone
-  docker:
-    image: openjdk:8-jdk
   plugin: 'gitclone'
 
 - name: lint
-  docker:
-    image: openjdk:8-jdk
   script: |
     cd ${FLOWCI_GIT_REPO}
     ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
 
 - name: build
-  docker:
-    image: openjdk:8-jdk
   script: |
     cd ${FLOWCI_GIT_REPO}
     ./gradlew assembleDebug
   
 - name: test
-  docker:
-    image: openjdk:8-jdk
   script: |
     cd ${FLOWCI_GIT_REPO}
     ./gradlew -Pci --console=plain :app:testDebug
 
 - name: jacoco
-  docker:
-    image: openjdk:8-jdk
   script: |
     cd ${FLOWCI_GIT_REPO}
     mkdir -p ${PWD}/app/build/intermediates/classes
@@ -64,8 +55,6 @@ steps:
   plugin: report-upload
 
 - name: build release
-  docker:
-    image: openjdk:8-jdk
   script: |
     cd ${FLOWCI_GIT_REPO}
     ./gradlew assembleRelease
