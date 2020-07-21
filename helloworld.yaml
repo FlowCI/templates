@@ -2,18 +2,6 @@
 # Example YAML for flow.ci
 #
 
-# Built-in environment variables
-#
-# FLOWCI_SERVER_URL:
-#
-# FLOWCI_FLOW_NAME:
-# FLOWCI_FLOW_WEBHOOK:
-#
-# FLOWCI_JOB_BUILD_NUM:
-# FLOWCI_JOB_STATUS:
-# FLOWCI_JOB_TRIGGER:
-
-# envs:
 #  environment variables in flow level which can be used in every steps
 envs:
   # Define Flow level variables
@@ -36,10 +24,37 @@ steps:
       echo "Workspace = ${FLOWCI_AGENT_WORKSPACE}"
       echo "Current job dir = ${FLOWCI_AGENT_JOB_DIR}"
       echo "Plugin dir = ${FLOWCI_AGENT_PLUGIN_DIR}"
+      echo "IP of en0 = ${FLOWCI_AGENT_IP_en0}" 
       
   - name: run from docker
+    allow_failure: true
     docker:
       image: golang:1.12
     script: |
       go get github.com/golang/example/hello
       $GOPATH/bin/hello
+      
+  - name: run mutiple dockers
+    dockers:
+      - image: flowci/debian-docker
+        is_runtime: true
+        
+      - image: mysql:5.6
+        environment:
+          MYSQL_ROOT_PASSWORD: 12345
+    script: |
+      ## print container id
+      echo "ubuntu:18.04 id = $CONTAINER_ID_0"
+      echo "mysql:5.6 id    = $CONTAINER_ID_1"
+
+      ## print container ip, network mode is 'bridge' by default
+      echo "ubuntu:18.04 ip = $CONTAINER_IP_0"
+      echo "mysql:5.6 ip    = $CONTAINER_IP_1"
+
+      python3 --version
+
+      ## wait-for-it.sh is built-in command to wait for other service, bash only
+      wait-for-it.sh ${CONTAINER_IP_1}:3306 -t 30
+      if [ $? == 0 ];then
+        docker run --rm mysql:5.6 mysql -h${CONTAINER_IP_1} -uroot -p12345 mysql -e "select * from user"
+      fi
