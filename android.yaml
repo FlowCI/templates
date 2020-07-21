@@ -62,7 +62,7 @@ steps:
 
 ###############################################
 ### to sign apk, it needs to create a 'secret' in admin page,
-### and set name to `SIGN_SECRET`
+### and put the secret name to `SIGN_SECRET`
 ###############################################
 
 # - name: sign apk
