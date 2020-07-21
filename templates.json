@@ -18,5 +18,10 @@
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/npm.yaml",
         "desc": "npm"
+    },
+
+    {
+        "url": "https://raw.githubusercontent.com/FlowCI/templates/master/android.yaml",
+        "desc": "android-gradle"
     }
 ]
