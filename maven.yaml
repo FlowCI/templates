@@ -10,26 +10,31 @@ envs:
   ## Credential name if git repo url is ssh or login required for http
   # FLOWCI_GIT_CREDENTIAL: "the credentail name your created"
 
+docker:
+  image: "maven:3.6-jdk-8"
+
 steps:
   - name: clone
-    docker:
-      image: flowci/debian-git
     plugin: 'gitclone'
     allow_failure: false
 
   - name: run unit test
-    docker:
-      image: maven:3.6-jdk-8
-    plugin: 'maven-test'
+    envs:
+      MVN_CMD: "mvn clean test"
+    plugin: 'maven-runner'
+
+  - name: junit upload
+    plugin: "junit-report-uploader"
+
+  - name: jacoco upload
+    plugin: "jacoco-report-uploader"
 
   - name: package
-    docker:
-      image: maven:3.6-jdk-8
-    plugin: 'maven-package'
+    envs:
+      MVN_CMD: "mvn package -Dmaven.test.skip=true"
+    plugin: 'maven-runner'
 
   - name: upload
-    docker:
-      image: ubuntu:18.04
     envs:
-      artifact_path: ${FLOWCI_MAVEN_PKGS}
+      artifact_pattern: "*.jar"
     plugin: 'artifact-upload'
