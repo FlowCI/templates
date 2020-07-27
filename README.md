@@ -6,3 +6,4 @@ the yaml tempaltes can be used for docker setup
 - [maven](./maven.yaml): git clone spring demo project and run maven unit test, package
 - [golang](./golang.yaml): to run go lint, test, and upload test coverage report
 - [npm](./npm.yaml): to run npm install, lint, test and upload test coverage report
+- [android-gradle](./android.yaml): build android project with gradle
