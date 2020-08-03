@@ -38,6 +38,10 @@ steps:
       echo "Plugin dir = ${FLOWCI_AGENT_PLUGIN_DIR}"
       
   - name: run from docker
+    envs:
+      COND_VAR: "hello"
+    condition: |
+      return "$COND_VAR" == "hello"
     docker:
       image: golang:1.12
     script: |
