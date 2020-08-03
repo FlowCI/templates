@@ -4,8 +4,6 @@
 
 envs:
   FLOWCI_GIT_URL: "https://github.com/hidroh/materialistic.git"
-  FLOWCI_GIT_BRANCH: "master"
-  FLOWCI_GIT_REPO: "materialistic"
 
   GRADLE_USER_HOME: "${FLOWCI_AGENT_WORKSPACE}/.gradle"
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"

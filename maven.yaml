@@ -5,7 +5,6 @@
 envs:
   # Git config
   FLOWCI_GIT_URL: "https://github.com/FlowCI/spring-petclinic-sample.git"
-  FLOWCI_GIT_BRANCH: "master"
 
   ## Credential name if git repo url is ssh or login required for http
   # FLOWCI_GIT_CREDENTIAL: "the credentail name your created"
