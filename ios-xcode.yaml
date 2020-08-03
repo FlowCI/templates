@@ -1,0 +1,30 @@
+#
+# iOS Project Template with xcode
+#
+
+envs:
+  # Git config
+  FLOWCI_GIT_URL: "https://github.com/FlowCI/spring-petclinic-sample.git"
+
+  ## Credential name if git repo url is ssh or login required for http
+  # FLOWCI_GIT_CREDENTIAL: "the credentail name your created"
+
+  IOS_PROJECT_NAME: ProjectName.xcodeproj
+  IOS_SCHEME_NAME: SchemeName
+
+steps:
+  - name: clone
+    plugin: 'gitclone'
+    allow_failure: false
+
+  - name: test
+    envs:
+      TEST_DEST: 'platform=iOS Simulator,name=iPhone 6s,OS=9.2'
+    script: |
+      xcodebuild clean -project $IOS_PROJECT_NAME -scheme $IOS_SCHEME_NAME | xcpretty
+      xcodebuild test -project $IOS_PROJECT_NAME -scheme $IOS_SCHEME_NAME -destination $TEST_DEST | xcpretty -s
+
+  - name: archive
+    script: |
+      xcodebuild clean archive -archivePath build/ProjectName -scheme SchemeName
+      xcodebuild -exportArchive -archivePath "build/ProjectName.xcarchive" -exportPath "build/ProjectName.ipa" -exportProvisioningProfile "ProvisioningProfileName"
