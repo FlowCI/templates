@@ -20,6 +20,12 @@
         "desc": "npm"
     },
 
+
+    {
+        "url": "https://raw.githubusercontent.com/FlowCI/templates/master/ruby.yaml",
+        "desc": "ruby"
+    },
+
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/android.yaml",
         "desc": "android-gradle"
