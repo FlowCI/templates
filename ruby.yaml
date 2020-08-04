@@ -1,0 +1,43 @@
+#
+# Ruby Project Template
+#
+
+envs:
+  # Git config
+  FLOWCI_GIT_URL: "https://github.com/rack/rack.git"
+
+  ## Credential name if git repo url is ssh or login required for http
+  # FLOWCI_GIT_CREDENTIAL: "the credentail name your created"
+
+  GEM_HOME: ${FLOWCI_AGENT_WORKSPACE}/.gem_home
+
+docker:
+  image: ruby:2.7
+
+steps:
+  - name: clone
+    plugin: 'gitclone'
+
+  - name: install
+    script: |
+      cd $FLOWCI_GIT_REPO
+      bundle install 
+
+  - name: rubocop
+    script: |
+      cd $FLOWCI_GIT_REPO
+      ${GEM_HOME}/bin/rubocop --format html -o rubocop.html
+    allow_failure: true
+
+  - name: upload report
+    envs:
+      REPORT_PATH: "${FLOWCI_GIT_REPO}/rubocop.html"
+      REPORT_NAME: "Rubocop"
+      REPORT_ENTRY_FILE: "rubocop.html"
+    plugin: 'report-upload'
+
+  - name: test
+    script: |
+      cd $FLOWCI_GIT_REPO
+      bundle exec rake test
+    allow_failure: true
