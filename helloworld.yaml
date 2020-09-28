@@ -59,5 +59,5 @@ steps:
       ## wait-for-it.sh is built-in command to wait for other service, bash only
       wait-for-it.sh ${CONTAINER_IP_1}:3306 -t 30
       if [ $? == 0 ];then
-        docker run --network flow-ci-agent-default --rm mysql:5.6 mysql -h${CONTAINER_IP_1} -uroot -p12345 mysql -e "select * from user"
+        docker run --network ${FLOWCI_AGENT_DOCKER_NETWORK} --rm mysql:5.6 mysql -h${CONTAINER_IP_1} -uroot -p12345 mysql -e "select * from user"
       fi
