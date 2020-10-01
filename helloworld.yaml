@@ -25,6 +25,23 @@ steps:
       echo "Current job dir = ${FLOWCI_AGENT_JOB_DIR}"
       echo "Plugin dir = ${FLOWCI_AGENT_PLUGIN_DIR}"
       echo "IP of en0 = ${FLOWCI_AGENT_IP_en0}" 
+
+  - name: state example
+    docker:
+      image: ubuntu:18.04
+    script: |
+      echo 'this will executed on each sub steps'
+    steps:
+      - name: install dep A
+        script: |
+          echo 'install something about A'
+          echo 'the docker image from parent step will be used'
+      - name: install dep B 
+        docker:
+          image: node:14
+        script: |
+          echo 'install something about B'
+          echo 'the docker image on current step will be used'
       
   - name: run from docker
     envs:
