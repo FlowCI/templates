@@ -4,28 +4,26 @@
         "desc": "hello world",
         "default": true
     },
-
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/maven.yaml",
         "desc": "maven"
     },
-
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/golang.yaml",
         "desc": "golang"
     },
-
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/npm.yaml",
         "desc": "npm"
     },
-
-
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/ruby.yaml",
         "desc": "ruby"
     },
-
+    {
+        "url": "https://raw.githubusercontent.com/FlowCI/templates/master/php.yaml",
+        "desc": "php"
+    },
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/android.yaml",
         "desc": "android-gradle"

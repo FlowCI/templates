@@ -1,0 +1,51 @@
+#
+# PHP Project Template
+#
+
+envs:
+  FLOWCI_GIT_URL: "https://gitlab.com/gitlab-examples/php.git"
+
+steps:
+- name: clone
+  docker:
+    image: flowci/debian-git
+  plugin: 'gitclone'
+
+- name: composer install
+  docker:
+    image: composer:2
+  script: |
+    cd $FLOWCI_GIT_REPO
+    composer install
+
+- name: unit test
+  dockers:
+    - image: php:7.4
+      is_runtime: true
+    - image: mysql:5.7
+      name: mysql
+      environment:
+        MYSQL_DATABASE: hello_world_test
+        MYSQL_ROOT_PASSWORD: mysql       
+  script: |
+    cd $FLOWCI_GIT_REPO
+
+    ## install db driver
+    docker-php-ext-install pdo_mysql
+
+    ## install phpunit test coverage driver
+    pecl install xdebug && docker-php-ext-enable xdebug
+
+    ## make sure mysql is upon running
+    wait-for-it.sh mysql:3306 -t 30
+
+    ## run phpunit
+    ./vendor/bin/phpunit --configuration phpunit_mysql.xml --coverage-html reports
+
+- name: upload report
+  docker:
+    image: ubuntu:18.04
+  envs:
+    REPORT_PATH: "${FLOWCI_GIT_REPO}/reports"
+    REPORT_NAME: "Code Coverage"
+  plugin: 'report-upload'    
