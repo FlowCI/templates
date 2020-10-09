@@ -20,11 +20,11 @@ steps:
   - name: test
     envs:
       TEST_DEST: 'platform=iOS Simulator,name=iPhone 6s,OS=9.2'
-    script: |
+    bash: |
       xcodebuild clean -project $IOS_PROJECT_NAME -scheme $IOS_SCHEME_NAME | xcpretty
       xcodebuild test -project $IOS_PROJECT_NAME -scheme $IOS_SCHEME_NAME -destination $TEST_DEST | xcpretty -s
 
   - name: archive
-    script: |
+    bash: |
       xcodebuild clean archive -archivePath build/ProjectName -scheme SchemeName
       xcodebuild -exportArchive -archivePath "build/ProjectName.xcarchive" -exportPath "build/ProjectName.ipa" -exportProvisioningProfile "ProvisioningProfileName"

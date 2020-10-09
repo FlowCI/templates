@@ -22,22 +22,22 @@ steps:
   plugin: 'gitclone'
 
 - name: lint
-  script: |
+  bash: |
     cd ${FLOWCI_GIT_REPO}
     ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
 
 - name: build
-  script: |
+  bash: |
     cd ${FLOWCI_GIT_REPO}
     ./gradlew assembleDebug
   
 - name: test
-  script: |
+  bash: |
     cd ${FLOWCI_GIT_REPO}
     ./gradlew -Pci --console=plain :app:testDebug
 
 - name: jacoco
-  script: |
+  bash: |
     cd ${FLOWCI_GIT_REPO}
     mkdir -p ${PWD}/app/build/intermediates/classes
     ln -s ${PWD}/app/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes ${PWD}/app/build/intermediates/classes/debug
@@ -53,7 +53,7 @@ steps:
   plugin: report-upload
 
 - name: build release
-  script: |
+  bash: |
     cd ${FLOWCI_GIT_REPO}
     ./gradlew assembleRelease
 

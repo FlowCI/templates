@@ -19,12 +19,12 @@ steps:
     plugin: 'gitclone'
 
   - name: install
-    script: |
+    bash: |
       cd $FLOWCI_GIT_REPO
       bundle install 
 
   - name: rubocop
-    script: |
+    bash: |
       cd $FLOWCI_GIT_REPO
       ${GEM_HOME}/bin/rubocop --format html -o rubocop.html
     allow_failure: true
@@ -37,7 +37,7 @@ steps:
     plugin: 'report-upload'
 
   - name: test
-    script: |
+    bash: |
       cd $FLOWCI_GIT_REPO
       bundle exec rake test
     allow_failure: true
