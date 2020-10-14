@@ -1,0 +1,24 @@
+#
+# Example YAML for flow.ci
+#
+envs:
+  FLOWCI_GIT_URL: https://gitlab.com/tobiaskoch/gitlab-ci-example-dotnetcore.git
+
+docker:
+  image: mcr.microsoft.com/dotnet/core/sdk:2.2.301
+  
+steps:
+  - name: clone
+    plugin: 'gitclone'
+
+  - name: test
+    bash: |
+      cd $FLOWCI_GIT_REPO
+      echo | dotnet --version
+      dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
+      dotnet test --logger "junit" --collect:"XPlat Code Coverage"
+  
+  - name: publish
+    bash: |
+      cd $FLOWCI_GIT_REPO
+      dotnet publish -c Release -o ../publish MyProject/MyProject.csproj
