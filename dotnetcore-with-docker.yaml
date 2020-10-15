@@ -16,9 +16,16 @@ steps:
       cd $FLOWCI_GIT_REPO
       echo | dotnet --version
       dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
-      dotnet test --logger "junit" --collect:"XPlat Code Coverage"
+      dotnet test
   
   - name: publish
     bash: |
       cd $FLOWCI_GIT_REPO
+
+      # output to publish directory
       dotnet publish -c Release -o ../publish MyProject/MyProject.csproj
+  
+  - name: upload
+    envs:
+      artifact_path: '${FLOWCI_AGENT_JOB_DIR}/${FLOWCI_GIT_REPO}/publish/'
+    plugin: 'artifact-upload'
