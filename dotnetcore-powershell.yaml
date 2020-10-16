@@ -1,0 +1,24 @@
+#
+# Example YAML for flow.ci
+#
+envs:
+  FLOWCI_GIT_URL: https://gitlab.com/tobiaskoch/gitlab-ci-example-dotnetcore.git
+  
+steps:
+  - name: clone
+    pwsh: |
+      Remove-Item $env:FLOWCI_GIT_REPO -Force -ErrorAction SilentlyContinue
+      git clone $env:FLOWCI_GIT_URL $env:FLOWCI_GIT_REPO
+      echo "$env:FLOWCI_GIT_URL has been cloned"
+
+  - name: test
+    pwsh: |
+      cd $env:FLOWCI_GIT_REPO
+      dotnet --version
+      dotnet test
+  
+  - name: publish
+    pwsh: |
+      cd $env:FLOWCI_GIT_REPO
+      # output to publish directory
+      dotnet publish -c Release -o publish MyProject/MyProject.csproj
