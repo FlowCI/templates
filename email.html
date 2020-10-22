@@ -1,5 +1,4 @@
 <html>
-
 <head>
     <style>
         th,
@@ -44,103 +43,102 @@
 </head>
 
 <body>
-    <div class="content">
-        
-        {% if job.status == 'SUCCESS' %}
-        <h2 class="state-success-bk">flow.ci report: {{ job.flowName }} #{{ job.number }}</h2>
-        {% elif job.status == 'FAILURE' %}
-        <h2 class="state-failure-bk">flow.ci report: {{ job.flowName }} #{{ job.number }}</h2>
-        {% elif job.status == 'CANCELLED' %}
-        <h2 class="state-cancelled-bk">flow.ci report: {{ job.flowName }} #{{ job.number }}</h2>
-        {% elif job.status == 'TIMEOUT' %}
-        <h2 class="state-timeout-bk">flow.ci report: {{ job.flowName }} #{{ job.number }}</h2>
-        {% endif %}
+<div class="content">
+    #if( $FLOWCI_JOB_STATUS == 'SUCCESS' )
+    <h2 class="state-success-bk">flow.ci report: $FLOWCI_FLOW_NAME $FLOWCI_JOB_BUILD_NUM</h2>
+    #elseif( $FLOWCI_JOB_STATUS == 'FAILURE')
+    <h2 class="state-failure-bk">flow.ci report: $FLOWCI_FLOW_NAME $FLOWCI_JOB_BUILD_NUM</h2>
+    #elseif( $FLOWCI_JOB_STATUS == 'CANCELLED')
+    <h2 class="state-cancelled-bk">flow.ci report: $FLOWCI_FLOW_NAME $FLOWCI_JOB_BUILD_NUM</h2>
+    #elseif( $FLOWCI_JOB_STATUS == 'TIMEOUT')
+    <h2 class="state-timeout-bk">flow.ci report: $FLOWCI_FLOW_NAME $FLOWCI_JOB_BUILD_NUM</h2>
+    #end
 
-        <table>
-            <tbody>
-                <tr>
-                    <td>State:</td>
-                    <td>{{ job.status }}</td>
-                </tr>
-                <tr>
-                    <td>Trigger:</td>
-                    <td>{{ job.trigger }}</td>
-                </tr>
-                <tr>
-                    <td>Triggered By:</td>
-                    <td>{{ job.triggerBy }}</td>
-                </tr>
-                <tr>
-                    <td>Start At:</td>
-                    <td>{{ job.startAt }}</td>
-                </tr>
-                <tr>
-                    <td>Finish At:</td>
-                    <td>{{ job.finishAt }}</td>
-                </tr>
-                <tr>
-                    <td>Duration:</td>
-                    <td>{{ job.duration }} (ms)</td>
-                </tr>
+    <table>
+        <tbody>
+        <tr>
+            <td>State:</td>
+            <td>$FLOWCI_JOB_STATUS</td>
+        </tr>
+        <tr>
+            <td>Trigger:</td>
+            <td>$FLOWCI_JOB_TRIGGER</td>
+        </tr>
+        <tr>
+            <td>Triggered By:</td>
+            <td>$FLOWCI_JOB_TRIGGER_BY</td>
+        </tr>
+        <tr>
+            <td>Start At:</td>
+            <td>$FLOWCI_JOB_START_AT</td>
+        </tr>
+        <tr>
+            <td>Finish At:</td>
+            <td>$FLOWCI_JOB_FINISH_AT</td>
+        </tr>
+        <tr>
+            <td>Duration:</td>
+            <td>$FLOWCI_JOB_DURATION (s)</td>
+        </tr>
 
-                <!-- Git Commit Info -->
-                {% if job.trigger in ["PUSH", "TAG"] %}
-                <tr>
-                    <td colspan="2">
-                        <h5>Git Info:</h5>
-                        <div>
-                            Branch: {{ job.gitCommit.branch }}
-                        </div>
-                        <div>
-                            Commit ID: 
-                            <a href="{{ job.gitCommit.url }}" target="_blank">{{ job.gitCommit.id }}</a>
-                        </div>
-                        <div>
-                            Commit Message: {{ job.gitCommit.message }}
-                        </div>
-                    </td>
-                </tr>
-                {% endif %}
+        <!-- Git Commit Info -->
+        #if ( $FLOWCI_JOB_TRIGGER == 'PUSH' || $$FLOWCI_JOB_TRIGGER == 'TAG' )
+        <tr>
+            <td colspan="2">
+                <h5>Git Info:</h5>
+                <div>
+                    Branch: $FLOWCI_GIT_BRANCH
+                </div>
+                <div>
+                    Commit ID:
+                    <a href="$FLOWCI_GIT_COMMIT_URL" target="_blank">$FLOWCI_GIT_COMMIT_ID</a>
+                </div>
+                <div>
+                    Commit Message: $FLOWCI_GIT_COMMIT_MESSAGE
+                </div>
+            </td>
+        </tr>
+        #end
 
-                <!-- Git PR Info -->
-                {% if job.trigger in ["PR_OPENED", "PR_MERGED"] %}
-                <tr>
-                    <td colspan="2">
-                        <h5>Git Info:</h5>
-                        <div>
-                            Title: 
-                            <a href="{{ job.gitPr.url }}" target="_blank">{{ job.gitPr.title }}</a>
-                        </div>
-                        <div>
-                            Message: {{ job.gitPr.message }}
-                        </div>
-                        <div>
-                            Number: {{ job.gitPr.number }}
-                        </div>
-                        <div>
-                            Head Repo: {{ job.gitPr.head.name }}, {{ job.gitPr.head.branch }} 
-                        </div>
-                        <div>
-                            Base Repo: {{ job.gitPr.base.name }}, {{ job.gitPr.base.branch }} 
-                        </div>
-                    </td>
-                </tr>
-                {% endif %}
+        <!-- Git PR Info -->
+        #if ( $FLOWCI_JOB_TRIGGER == 'PR_OPENED' || $$FLOWCI_JOB_TRIGGER == 'PR_MERGED' )
+        <tr>
+            <td colspan="2">
+                <h5>Git Info:</h5>
+                <div>
+                    Title:
+                    <a href="$FLOWCI_GIT_PR_URL" target="_blank">$FLOWCI_GIT_PR_TITLE</a>
+                </div>
+                <div>
+                    Message: $FLOWCI_GIT_PR_MESSAGE
+                </div>
+                <div>
+                    Number: $FLOWCI_GIT_PR_NUMBER
+                </div>
+                <div>
+                    Head Repo: $FLOWCI_GIT_PR_HEAD_REPO_NAME, $FLOWCI_GIT_PR_HEAD_REPO_BRANCH
+                </div>
+                <div>
+                    Base Repo: $FLOWCI_GIT_PR_BASE_REPO_NAME, $FLOWCI_GIT_PR_BASE_REPO_BRANCH
+                </div>
+            </td>
+        </tr>
+        #end
 
-                <!-- Steps -->
-                <tr>
-                    <td colspan="2">
-                        <h5>Steps:</h5>
-                        {% for step in job.steps %}
-                        <div>
-                            {{ step.name }} : {{ step.status }}
-                        </div>
-                        {% endfor %}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        <!-- Steps -->
+        <tr>
+            <td colspan="2">
+                <h5>Steps:</h5>
+                #foreach( $item in $$FLOWCI_JOB_STEPS.split(";") )
+                <div>
+                    #set ( $stepInfo = $item.split("=") )
+                    $stepInfo[0] : $stepInfo[1]
+                </div>
+                #end
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
-
 </html>
