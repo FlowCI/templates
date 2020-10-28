@@ -1,31 +1,39 @@
 [
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/helloworld.yaml",
-        "desc": "hello world",
+        "desc": "Hello World",
         "default": true
     },
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/maven.yaml",
-        "desc": "maven"
+        "desc": "Maven"
     },
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/golang.yaml",
-        "desc": "golang"
+        "desc": "Golang"
     },
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/npm.yaml",
-        "desc": "npm"
+        "desc": "Npm"
     },
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/ruby.yaml",
-        "desc": "ruby"
+        "desc": "Ruby"
     },
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/php.yaml",
-        "desc": "php"
+        "desc": "PHP"
     },
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/android.yaml",
-        "desc": "android-gradle"
+        "desc": "Android with Gradle"
+    },
+    {
+        "url": "https://raw.githubusercontent.com/FlowCI/templates/master/dotnetcore-powershell.yaml",
+        "desc": ".NetCore: build from Windows with PowerShell"
+    },
+    {
+        "url": "https://raw.githubusercontent.com/FlowCI/templates/master/dotnetcore-with-docker.yaml",
+        "desc": ".NetCore: build within Docker"
     }
 ]
