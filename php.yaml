@@ -14,7 +14,7 @@ steps:
 - name: composer install
   docker:
     image: composer:2
-  script: |
+  bash: |
     cd $FLOWCI_GIT_REPO
     composer install
 
@@ -27,7 +27,7 @@ steps:
       environment:
         MYSQL_DATABASE: hello_world_test
         MYSQL_ROOT_PASSWORD: mysql       
-  script: |
+  bash: |
     cd $FLOWCI_GIT_REPO
 
     ## install db driver

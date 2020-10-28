@@ -12,12 +12,12 @@ steps:
     envs:
       SAY_HELLO: "hello.flow.ci"
     allow_failure: true
-    script: |
+    bash: |
       echo ${SAY_HELLO} ${EXAMPLE_VAR}
       sleep 1
   
   - name: build in envs
-    script: |
+    bash: |
       echo "Server URL = ${FLOWCI_SERVER_URL}"
       echo "Ttoken = ${FLOWCI_AGENT_TOKEN}"
       echo "Port = ${FLOWCI_AGENT_PORT}"
@@ -29,17 +29,17 @@ steps:
   - name: state example
     docker:
       image: ubuntu:18.04
-    script: |
+    bash: |
       echo 'this will executed on each sub steps'
     steps:
       - name: install dep A
-        script: |
+        bash: |
           echo 'install something about A'
           echo 'the docker image from parent step will be used'
       - name: install dep B 
         docker:
           image: node:14
-        script: |
+        bash: |
           echo 'install something about B'
           echo 'the docker image on current step will be used'
       
@@ -50,7 +50,7 @@ steps:
       return "$COND_VAR" == "hello"
     docker:
       image: golang:1.12
-    script: |
+    bash: |
       go get github.com/golang/example/hello
       $GOPATH/bin/hello
       
@@ -62,7 +62,7 @@ steps:
       - image: mysql:5.6
         environment:
           MYSQL_ROOT_PASSWORD: 12345
-    script: |
+    bash: |
       ## print container id
       echo "ubuntu:18.04 id = $CONTAINER_ID_0"
       echo "mysql:5.6 id    = $CONTAINER_ID_1"
