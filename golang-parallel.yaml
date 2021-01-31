@@ -1,0 +1,38 @@
+#
+# Build Golang project with parallel
+#
+
+envs:
+  # Git config
+  FLOWCI_GIT_URL: "https://github.com/FlowCI/gin.git"
+
+  ## Credential name if git repo url is ssh or login required for http
+  # FLOWCI_GIT_CREDENTIAL: "the credentail name your created"
+
+steps:
+  - name: clone
+    docker:
+      image: flowci/debian-git
+    plugin: 'gitclone'
+    cache:
+      key: repo
+      paths:
+      - "./${FLOWCI_GIT_REPO}"
+
+  - parallel:
+      lint-flow:
+        steps:
+        - name: lint
+          plugin: 'go-lint'
+          allow_failure: true
+          cache:
+            key: repo
+
+      test-flow:
+        steps:
+        - name: test
+          docker:
+            image: golang:1.12
+          plugin: 'go-test'
+          cache:
+            key: repo
