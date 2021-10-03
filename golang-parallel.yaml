@@ -32,7 +32,7 @@ steps:
         steps:
         - name: test
           docker:
-            image: golang:1.12
+            image: golang:1.13
           plugin: 'go-test'
           cache:
             key: repo
