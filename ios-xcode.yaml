@@ -4,27 +4,38 @@
 
 envs:
   # Git config
-  FLOWCI_GIT_URL: "https://github.com/FlowCI/spring-petclinic-sample.git"
+  FLOWCI_GIT_URL: "https://github.com/FlowCI/FaceLandmarksDetection.git"
 
   ## Credential name if git repo url is ssh or login required for http
   # FLOWCI_GIT_CREDENTIAL: "the credentail name your created"
 
-  IOS_PROJECT_NAME: ProjectName.xcodeproj
-  IOS_SCHEME_NAME: SchemeName
+  IOS_PROJECT_NAME: DetectFaceLandmarks.xcodeproj
+
+  # schema name could be selected from 'xcodebuild -list'
+  IOS_SCHEME_NAME: DetectFaceLandmarks
 
 steps:
   - name: clone
     plugin: 'gitclone'
     allow_failure: false
 
+  # sudo gem install cocoapods
+  - name: pod install
+    allow_failure: true
+    bash: |
+      cd ${FLOWCI_GIT_REPO}
+      pod install
+
+  # If 'xcodebuild' not found, please install xcode and run 'sudo xcode-select -s /Applications/Xcode.app/Contents/Developer'
+  # gem install xcpretty
   - name: test
     envs:
-      TEST_DEST: 'platform=iOS Simulator,name=iPhone 6s,OS=9.2'
+      TEST_DEST: 'platform=iOS Simulator,name=iPhone 11,OS=15.0'
     bash: |
-      xcodebuild clean -project $IOS_PROJECT_NAME -scheme $IOS_SCHEME_NAME | xcpretty
-      xcodebuild test -project $IOS_PROJECT_NAME -scheme $IOS_SCHEME_NAME -destination $TEST_DEST | xcpretty -s
+      xcodebuild clean -project $IOS_PROJECT_NAME -scheme $IOS_SCHEME_NAME
+      xcodebuild test -project $IOS_PROJECT_NAME -scheme $IOS_SCHEME_NAME -destination $TEST_DEST
 
   - name: archive
     bash: |
-      xcodebuild clean archive -archivePath build/ProjectName -scheme SchemeName
-      xcodebuild -exportArchive -archivePath "build/ProjectName.xcarchive" -exportPath "build/ProjectName.ipa" -exportProvisioningProfile "ProvisioningProfileName"
+      xcodebuild clean archive -archivePath build/${IOS_PROJECT_NAME} -scheme ${IOS_SCHEME_NAME}
+      xcodebuild archive -project ${IOS_PROJECT_NAME} -scheme ${IOS_SCHEME_NAME} -archivePath ./${IOS_SCHEME_NAME}.xcarchive -exportProvisioningProfile "ProvisioningProfileName"
