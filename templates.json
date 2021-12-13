@@ -45,13 +45,13 @@
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/dotnetcore-powershell.yaml",
         "url_cn": "https://gitee.com/flow_ci/flow-templates/raw/master/dotnetcore-powershell.yaml",
-        "Title": ".NetCore with PowerShell",
+        "title": ".NetCore with PowerShell",
         "desc": "Template of how to build, test .NetCore project with PowerShell"
     },
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/dotnetcore-with-docker.yaml",
         "url_cn": "https://gitee.com/flow_ci/flow-templates/raw/master/dotnetcore-with-docker.yaml",
-        "Title": ".NetCore within Docker",
+        "title": ".NetCore within Docker",
         "desc": "Template of how to build, test .NetCore project within docker"
     }
 ]
