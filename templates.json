@@ -21,7 +21,7 @@
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/npm.yaml",
         "url_cn": "https://gitee.com/flow_ci/flow-templates/raw/master/npm.yaml",
-        "title": "Npm",
+        "title": "npm",
         "desc": "Template of how to build, test NPM project"
     },
     {
@@ -45,7 +45,7 @@
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/dotnetcore-powershell.yaml",
         "url_cn": "https://gitee.com/flow_ci/flow-templates/raw/master/dotnetcore-powershell.yaml",
-        "Title": ".NetCore",
+        "Title": ".NetCore with PowerShell",
         "desc": "Template of how to build, test .NetCore project with PowerShell"
     },
     {
