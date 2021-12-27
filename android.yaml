@@ -19,6 +19,8 @@ steps:
   plugin: android-sdk-setup
 
 - name: clone
+  docker:
+    image: flowci/debian-git
   plugin: 'gitclone'
 
 - name: lint
