@@ -16,6 +16,8 @@ docker:
 
 steps:
   - name: clone
+    docker:
+      image: flowci/debian-git
     plugin: 'gitclone'
 
   - name: install
