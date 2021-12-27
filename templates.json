@@ -2,47 +2,56 @@
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/helloworld.yaml",
         "url_cn": "https://gitee.com/flow_ci/flow-templates/raw/master/helloworld.yaml",
-        "desc": "Hello World",
+        "title": "Hello World",
+        "desc": "Sample template shows how to define steps",
         "default": true
     },
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/maven.yaml",
         "url_cn": "https://gitee.com/flow_ci/flow-templates/raw/master/maven.yaml",
-        "desc": "Maven"
+        "title": "Maven",
+        "desc": "Template of how to build, test Maven project"
     },
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/golang.yaml",
         "url_cn": "https://gitee.com/flow_ci/flow-templates/raw/master/golang.yaml",
-        "desc": "Golang"
+        "title": "Golang",
+        "desc": "Template of how to build, test Golang project"
     },
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/npm.yaml",
         "url_cn": "https://gitee.com/flow_ci/flow-templates/raw/master/npm.yaml",
-        "desc": "Npm"
+        "title": "npm",
+        "desc": "Template of how to build, test NPM project"
     },
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/ruby.yaml",
         "url_cn": "https://gitee.com/flow_ci/flow-templates/raw/master/ruby.yaml",
-        "desc": "Ruby"
+        "title": "Ruby",
+        "desc": "Template of how to build, test Ruby project"
     },
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/php.yaml",
         "url_cn": "https://gitee.com/flow_ci/flow-templates/raw/master/php.yaml",
-        "desc": "PHP"
+        "title": "PHP",
+        "desc": "Template of how to build, test PHP project"
     },
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/android.yaml",
         "url_cn": "https://gitee.com/flow_ci/flow-templates/raw/master/android.yaml",
-        "desc": "Android with Gradle"
+        "title": "Android",
+        "desc": "Template of how to build, test Android project by Gradle"
     },
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/dotnetcore-powershell.yaml",
         "url_cn": "https://gitee.com/flow_ci/flow-templates/raw/master/dotnetcore-powershell.yaml",
-        "desc": ".NetCore: build from Windows with PowerShell"
+        "title": ".NetCore with PowerShell",
+        "desc": "Template of how to build, test .NetCore project with PowerShell"
     },
     {
         "url": "https://raw.githubusercontent.com/FlowCI/templates/master/dotnetcore-with-docker.yaml",
         "url_cn": "https://gitee.com/flow_ci/flow-templates/raw/master/dotnetcore-with-docker.yaml",
-        "desc": ".NetCore: build within Docker"
+        "title": ".NetCore within Docker",
+        "desc": "Template of how to build, test .NetCore project within docker"
     }
 ]
