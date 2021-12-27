@@ -9,7 +9,7 @@ envs:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
 docker:
-  image: openjdk:8-jdk
+  image: openjdk:11-jdk
 
 steps:      
 - name: setup android sdk
@@ -34,6 +34,7 @@ steps:
     ./gradlew assembleDebug
   
 - name: test
+  timeout: 7200
   bash: |
     cd ${FLOWCI_GIT_REPO}
     ./gradlew -Pci --console=plain :app:testDebug
